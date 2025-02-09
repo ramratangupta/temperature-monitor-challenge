@@ -164,57 +164,66 @@ function App() {
             <div className="d-inline-block ms-3">Connected</div>
           </div>
         </div>
-        <div className="row m-0 mt-3">
-          <div className="col tempratureCard rounded p15">
-            <span className="text-secondary fs-6">Currnet Temperature</span>
-            <h2 className="m-2">
-              {temperature != null ? <>{temperature} &deg;C</> : null}
-            </h2>
-            {status != "" ? (
-              <span
-                className={`text-${
-                  status == "HIGH" ? "danger" : "success"
-                } fs-7 me-2`}
-              >
-                {status}
-              </span>
-            ) : null}
-            {temperature != null ? (
-              <>
-                &#8226; Last Updated: {lastUpdate ? getTimeAgo(lastUpdate) : ""}
-              </>
-            ) : null}
-          </div>
-        </div>
-        {recent5.length > 1 ? (
-          <div className="row m-0 mt-3">
-            <div className="fs-6 fw-bold border mb-2 p15">Recent Readings</div>
-            <div className="col tempratureCardList p15 pt-0 rounded rounded-start-0 rounded-end-0 ">
-              {recent5.map((item, index) =>
-                index > 0 ? (
-                  <div className="row m-0 mt-3 bg-light p-2" key={item.id}>
-                    <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                      {item.temperature} &deg;C
-                      <div className="fs-8 text-muted">{getTimeAgo(item.timestamp)}</div>
-                    </div>
-                    <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
-                      {item.status != "" ? (
-                        <div className="float-lg-end float-sm-start mt5">
-                          <span
-                            className={`alert alert-${
-                              item.status == "HIGH" ? "danger" : "success"
-                            } fs-7 p-1`}
-                          >
-                            {item.status}
-                          </span>
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                ) : null
-              )}
+        {isConnected ? (
+          <>
+            <div className="row m-0 mt-3">
+              <div className="col tempratureCard rounded p15">
+                <span className="text-secondary fs-6">Currnet Temperature</span>
+                <h2 className="m-2">
+                  {temperature != null ? <>{temperature} &deg;C</> : null}
+                </h2>
+                {status != "" ? (
+                  <span
+                    className={`text-${
+                      status == "HIGH" ? "danger" : "success"
+                    } fs-7 me-2`}
+                  >
+                    {status}
+                  </span>
+                ) : null}
+                {temperature != null ? (
+                  <>
+                    &#8226; Last Updated:{" "}
+                    {lastUpdate ? getTimeAgo(lastUpdate) : ""}
+                  </>
+                ) : null}
+              </div>
             </div>
-          </div>
+            {recent5.length > 1 ? (
+              <div className="row m-0 mt-3">
+                <div className="fs-6 fw-bold border mb-2 p15">
+                  Recent Readings
+                </div>
+                <div className="col tempratureCardList p15 pt-0 rounded rounded-start-0 rounded-end-0 ">
+                  {recent5.map((item, index) =>
+                    index > 0 ? (
+                      <div className="row m-0 mt-3 bg-light p-2" key={item.id}>
+                        <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                          {item.temperature} &deg;C
+                          <div className="fs-8 text-muted">
+                            {getTimeAgo(item.timestamp)}
+                          </div>
+                        </div>
+                        <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
+                          {item.status != "" ? (
+                            <div className="float-lg-end float-sm-start mt5">
+                              <span
+                                className={`alert border-0 alert-${
+                                  item.status == "HIGH" ? "warning" : "success"
+                                } fs-7 p-1`}
+                              >
+                                {item.status}
+                              </span>
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+                    ) : null
+                  )}
+                </div>
+              </div>
+            ) : null}
+          </>
         ) : null}
       </div>
     </div>
